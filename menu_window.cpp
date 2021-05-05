@@ -144,7 +144,7 @@ void MsgBox_function(){
 ///////////////////////////////////////////////////////////
 //Создадим глобальные переменные для хранения  матрицы и вектора
 double expression;
-QString matrix_a[6][7] = {{ 0 }};
+double matrix_a[6][7] = {{ 0 }};
 double vector[6] = {0};
 ///////////////////////////////////////////////////////////
 void matrix_calculate(int numRows, int numCols){
@@ -157,12 +157,11 @@ void matrix_calculate(int numRows, int numCols){
                  /Было явное деление на 0, что приводило к ошибке.
                  /Поэтому пришлось присвоить этому элементу значение 0.
                 */
-                 matrix_a[0][0] = "0";
+                 matrix_a[0][0] = 0;
                  continue;
              }
                 expression = pow(3.5, 2 * row) * std::abs(row - 3 * col) + ((2 + col) / (row + col));
-                QString s = QString::number(expression);
-                matrix_a[row][col] = s;
+                matrix_a[row][col] = expression;
             }
      }
 }
@@ -175,7 +174,7 @@ void vector_calculate(){
             for(int j = 0; j < 7; ++j){
                 if(j % 2 == 0){
 
-                    res += pow(matrix_a[i][j].toDouble(), 2);
+                    res += pow(matrix_a[i][j], 2);
                     vector[i] = res;
                 }
             }
@@ -223,7 +222,7 @@ void Menu_window::on_pushButton_2_clicked()
      for (int i=0; i<numRows; ++i) {
        for (int j=0; j<numCols; ++j) {
 
-         QPushButton *btn = new QPushButton(matrix_a[i][j], this);
+         QPushButton *btn = new QPushButton(QString::number(matrix_a[i][j]), this);
          btn->setStyleSheet("border: 1px solid transparent;text-align: center;"
                             "color:rgba(255,255,255,255);"
                             "border-radius: 8px;"
